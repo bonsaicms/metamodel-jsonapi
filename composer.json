@@ -17,7 +17,8 @@
     "require": {
         "php": "^8.0",
         "laravel/framework": "^8.0",
-        "bonsaicms/metamodel": "dev-master"
+        "bonsaicms/metamodel": "dev-master",
+        "laravel-json-api/laravel": "^1.1"
     },
     "require-dev": {
         "orchestra/testbench": "^6.22",
@@ -26,7 +27,8 @@
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.5",
+        "laravel-json-api/testing": "^1.0"
     },
     "autoload": {
         "psr-4": {

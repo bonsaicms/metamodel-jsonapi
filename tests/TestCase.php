@@ -12,6 +12,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
+            \LaravelJsonApi\Laravel\ServiceProvider::class,
             \BonsaiCms\Metamodel\MetamodelServiceProvider::class,
             \BonsaiCms\MetamodelJsonApi\MetamodelJsonApiServiceProvider::class,
         ];
@@ -41,6 +42,11 @@ class TestCase extends Orchestra
 
             'generatedTablePrefix' => 'pre_gen_',
             'generatedTableSuffix' => '_suf_gen',
+        ]);
+        config()->set('jsonapi', [
+            'servers' => [
+                'metamodel' => \BonsaiCms\MetamodelJsonApi\Server::class,
+            ],
         ]);
 //        config()->set('bonsaicms-metamodel-eloquent', [
 //            'bind' => [
