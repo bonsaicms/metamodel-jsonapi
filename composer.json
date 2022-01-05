@@ -1,0 +1,62 @@
+{
+    "name": "bonsaicms/metamodel-jsonapi",
+    "description": "Metamodel JSON:API for Bonsai CMS",
+    "keywords": [
+        "laravel",
+        "bonsaicms",
+        "metamodel-jsonapi"
+    ],
+    "homepage": "https://github.com/bonsaicms/metamodel-jsonapi",
+    "license": "MIT",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../*"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "laravel/framework": "^8.0",
+        "bonsaicms/metamodel": "dev-master"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.22",
+        "pestphp/pest": "^1.21",
+        "pestphp/pest-plugin-laravel": "^1.1",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "BonsaiCms\\MetamodelJsonApi\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BonsaiCms\\MetamodelJsonApi\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest coverage"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BonsaiCms\\MetamodelJsonApi\\MetamodelJsonApiServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true,
+            "composer/package-versions-deprecated": true
+        }
+    }
+}
