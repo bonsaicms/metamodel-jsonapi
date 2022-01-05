@@ -34,11 +34,8 @@ class Json extends Attribute
 
     protected function isJson($value) {
         try {
-            $encoded = json_encode($value, JSON_THROW_ON_ERROR);
-            return (json_decode(
-                json: $encoded,
-                flags: JSON_THROW_ON_ERROR
-            ) === $value);
+            json_encode($value, JSON_THROW_ON_ERROR);
+            return true;
         } catch (JsonException $e)
         {
             return false;
