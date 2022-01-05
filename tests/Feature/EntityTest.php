@@ -156,7 +156,92 @@ it('fetches right relationships related to an entity', function () {
         ->assertFetchedMany($relationships);
 });
 
-// TODO: tests for store & update
+// store
+
+it('stores a new entity', function () {
+    $entity = Entity::factory()->make();
+
+    $data = [
+        'type' => 'entities',
+        'attributes' => [
+            'name' => $entity->name,
+            'table' => $entity->table,
+        ],
+    ];
+
+    $this
+        ->jsonApi()
+        ->expects('entities')
+        ->withData($data)
+        ->post('/api/testUrlPrefix/entities')
+        ->assertCreatedWithServerId('http://localhost/api/testUrlPrefix/entities', $data);
+});
+
+// update
+
+it('updates the entity\'s name field', function () {
+    $entity = Entity::factory()->create([
+        'name' => 'original'
+    ]);
+
+    $this->assertDatabaseHas('pre_met_entities_suf_met', [
+        'id' => $entity->getRouteKey(),
+        'name' => 'original',
+    ]);
+
+    $data = [
+        'id' => (string) $entity->getRouteKey(),
+        'type' => 'entities',
+        'attributes' => [
+            'name' => 'changed',
+        ],
+    ];
+
+    $this
+        ->jsonApi()
+        ->expects('entities')
+        ->withData($data)
+        ->patch('/api/testUrlPrefix/entities/'.$entity->getRouteKey())
+        ->assertFetchedOne($data);
+
+    $this->assertDatabaseHas('pre_met_entities_suf_met', [
+        'id' => $entity->getRouteKey(),
+        'name' => 'changed',
+    ]);
+});
+
+it('updates the entity\'s table field', function () {
+    $entity = Entity::factory()->create([
+        'table' => 'original'
+    ]);
+
+    $this->assertDatabaseHas('pre_met_entities_suf_met', [
+        'id' => $entity->getRouteKey(),
+        'table' => 'original',
+    ]);
+
+    $data = [
+        'id' => (string) $entity->getRouteKey(),
+        'type' => 'entities',
+        'attributes' => [
+            'table' => 'changed',
+        ],
+    ];
+
+    $this
+        ->jsonApi()
+        ->expects('entities')
+        ->withData($data)
+        ->patch('/api/testUrlPrefix/entities/'.$entity->getRouteKey())
+        ->assertFetchedOne($data);
+
+    $this->assertDatabaseHas('pre_met_entities_suf_met', [
+        'id' => $entity->getRouteKey(),
+        'table' => 'changed',
+    ]);
+});
+
+// TODO: tests for store & update related
 
 // delete
 

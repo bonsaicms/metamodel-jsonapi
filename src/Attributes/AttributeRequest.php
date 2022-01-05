@@ -3,8 +3,9 @@
 namespace BonsaiCms\MetamodelJsonApi\Attributes;
 
 use Illuminate\Validation\Rule;
-use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
+use BonsaiCms\Metamodel\Models\Attribute;
 use LaravelJsonApi\Validation\Rule as JsonApiRule;
+use LaravelJsonApi\Laravel\Http\Requests\ResourceRequest;
 
 class AttributeRequest extends ResourceRequest
 {
@@ -16,7 +17,52 @@ class AttributeRequest extends ResourceRequest
     public function rules(): array
     {
         return [
-            // @TODO
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+            'column' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::notIn([
+                    'id',
+                    'created_at',
+                    'updated_at',
+                ]),
+                'regex:/[a-z][a-z0-9_]*/',
+                Rule::unique((new Attribute)->getTable())->where(function ($query) {
+                    return $query->where('entity_id', $this->validationData()['entity']['id']);
+                })->ignore($this->model()),
+            ],
+            'dataType' => [
+                'required',
+                'string',
+                Rule::in([
+                    // TODO
+                    'text',
+                    'string',
+                    'integer',
+                    'boolean',
+                    'date',
+                    'time',
+                    'datetime',
+                    'json',
+                ]),
+            ],
+            'default' => [
+                // TODO
+            ],
+            'nullable' => [
+                'nullable',
+                'boolean',
+            ],
+
+            'entity' => [
+                'required',
+                JsonApiRule::toOne(),
+            ],
         ];
     }
 }

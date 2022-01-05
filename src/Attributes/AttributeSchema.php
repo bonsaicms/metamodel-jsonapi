@@ -12,6 +12,7 @@ use LaravelJsonApi\Eloquent\Schema;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Fields\Boolean;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
+use BonsaiCms\MetamodelJsonApi\Fields\Json;
 
 class AttributeSchema extends Schema
 {
@@ -33,8 +34,8 @@ class AttributeSchema extends Schema
             ID::make(),
             Str::make('name')->sortable(),
             Str::make('column')->sortable(),
-            Str::make('type')->sortable(),
-            Str::make('default')->sortable(),
+            Str::make('dataType', 'type')->sortable(),
+            Json::make('default')->sortable(),
             Boolean::make('nullable')->sortable(),
             DateTime::make('createdAt')->sortable()->readOnly(),
             DateTime::make('updatedAt')->sortable()->readOnly(),

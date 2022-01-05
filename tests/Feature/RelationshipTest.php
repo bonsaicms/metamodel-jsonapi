@@ -125,6 +125,8 @@ it('fetches the right entity related to the relationship', function () {
 
 // TODO: tests for store & update
 
+// TODO: tests for store & update related
+
 // delete
 
 it('deletes the relationship', function () {
