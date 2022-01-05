@@ -3,16 +3,21 @@
 namespace BonsaiCms\MetamodelJsonApi\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
+use LaravelJsonApi\Testing\MakesJsonApiRequests;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TestCase extends Orchestra
 {
     use RefreshDatabase;
+    use MakesJsonApiRequests;
 
     protected function getPackageProviders($app)
     {
         return [
             \LaravelJsonApi\Laravel\ServiceProvider::class,
+            \LaravelJsonApi\Encoder\Neomerx\ServiceProvider::class,
+            \LaravelJsonApi\Spec\ServiceProvider::class,
+            \LaravelJsonApi\Validation\ServiceProvider::class,
             \BonsaiCms\Metamodel\MetamodelServiceProvider::class,
             \BonsaiCms\MetamodelJsonApi\MetamodelJsonApiServiceProvider::class,
         ];
@@ -45,8 +50,13 @@ class TestCase extends Orchestra
         ]);
         config()->set('jsonapi', [
             'servers' => [
-                'metamodel' => \BonsaiCms\MetamodelJsonApi\Server::class,
+                'testServerName' => \BonsaiCms\MetamodelJsonApi\Server::class,
             ],
+        ]);
+        config()->set('bonsaicms-metamodel-jsonapi', [
+            'server' => 'testServerName',
+            'authorizable' => false,
+            'baseUri' => '/api/testUrlPrefix',
         ]);
 //        config()->set('bonsaicms-metamodel-eloquent', [
 //            'bind' => [

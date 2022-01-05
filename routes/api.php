@@ -7,7 +7,19 @@ use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
 JsonApiRoute::server(Config::get('bonsaicms-metamodel-jsonapi.server'))
     ->prefix(Config::get('bonsaicms-metamodel-jsonapi.baseUri'))
     ->resources(function ($server) {
-        $server->resource('entities', JsonApiController::class);
-        $server->resource('attributes', JsonApiController::class);
-        $server->resource('relationships', JsonApiController::class);
+        $server->resource('entities', JsonApiController::class)
+            ->relationships(function ($relationships) {
+                $relationships->hasMany('attributes');
+                $relationships->hasMany('leftRelationships');
+                $relationships->hasMany('rightRelationships');
+            });
+        $server->resource('attributes', JsonApiController::class)
+            ->relationships(function ($relationships) {
+                $relationships->hasOne('entity');
+            });
+        $server->resource('relationships', JsonApiController::class)
+            ->relationships(function ($relationships) {
+                $relationships->hasOne('leftEntity');
+                $relationships->hasOne('rightEntity');
+            });
     });

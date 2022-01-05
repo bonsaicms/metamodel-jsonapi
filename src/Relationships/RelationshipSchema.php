@@ -2,6 +2,8 @@
 
 namespace BonsaiCms\MetamodelJsonApi\Relationships;
 
+use LaravelJsonApi\Eloquent\Fields\Str;
+use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use BonsaiCms\Metamodel\Models\Relationship;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
@@ -28,8 +30,17 @@ class RelationshipSchema extends Schema
     {
         return [
             ID::make(),
+            Str::make('type')->sortable(),
+            Str::make('pivotTable')->sortable(),
+            Str::make('leftForeignKey')->sortable(),
+            Str::make('rightForeignKey')->sortable(),
+            Str::make('leftRelationshipName')->sortable(),
+            Str::make('rightRelationshipName')->sortable(),
             DateTime::make('createdAt')->sortable()->readOnly(),
             DateTime::make('updatedAt')->sortable()->readOnly(),
+
+            BelongsTo::make('leftEntity')->type('entities'),
+            BelongsTo::make('rightEntity')->type('entities'),
         ];
     }
 

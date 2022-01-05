@@ -7,6 +7,8 @@ use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
+use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
 use LaravelJsonApi\Eloquent\Schema;
 
@@ -28,8 +30,15 @@ class EntitySchema extends Schema
     {
         return [
             ID::make(),
+            Str::make('name')->sortable(),
+            Str::make('table')->sortable(),
+            Str::make('realTableName')->sortable()->readOnly(),
             DateTime::make('createdAt')->sortable()->readOnly(),
             DateTime::make('updatedAt')->sortable()->readOnly(),
+
+            HasMany::make('attributes')->type('attributes'),
+            HasMany::make('leftRelationships')->type('relationships'),
+            HasMany::make('rightRelationships')->type('relationships'),
         ];
     }
 
