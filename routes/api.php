@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
 
+// TODO: config (middleware, auth, namespace, prefix etc.)
 JsonApiRoute::server(Config::get('bonsaicms-metamodel-jsonapi.server'))
     ->prefix(Config::get('bonsaicms-metamodel-jsonapi.baseUri'))
     ->resources(function ($server) {

@@ -13,8 +13,10 @@ class MetamodelJsonApiServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Merge config
         $this->mergeConfigFrom(
-            __DIR__.'/../config/bonsaicms-metamodel-jsonapi.php', 'bonsaicms-metamodel-jsonapi'
+            __DIR__.'/../config/bonsaicms-metamodel-jsonapi.php',
+            'bonsaicms-metamodel-jsonapi'
         );
     }
 
@@ -25,8 +27,10 @@ class MetamodelJsonApiServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Load routes
         $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
+        // Publish config
         $this->publishes([
             __DIR__.'/../config/bonsaicms-metamodel-jsonapi.php' => $this->app->configPath('bonsaicms-metamodel-jsonapi.php'),
         ], 'bonsaicms-metamodel-jsonapi-config');
