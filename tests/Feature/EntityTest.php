@@ -177,23 +177,117 @@ it('stores a new entity', function () {
         ->assertCreatedWithServerId('http://localhost/api/testUrlPrefix/entities', $data);
 });
 
+it('cannot store a new entity with invalid name field', function () {
+    $data = [
+        'type' => 'entities',
+        'attributes' => [
+            'name' => 'some invalid name',
+            'table' => 'some_valid_table_name',
+        ],
+    ];
+
+    $this
+        ->jsonApi()
+        ->expects('entities')
+        ->withData($data)
+        ->post('/api/testUrlPrefix/entities')
+        ->assertErrors(422, [
+            [
+                'source' => ['pointer' => '/data/attributes/name'],
+                'status' => '422',
+            ],
+        ]);
+});
+
+it('cannot store two entities with the same name field', function () {
+    $entity1 = Entity::factory()->create();
+    $entity2 = Entity::factory()->make();
+
+    $data = [
+        'type' => 'entities',
+        'attributes' => [
+            'name' => $entity1->name,
+            'table' => $entity2->table,
+        ],
+    ];
+
+    $this
+        ->jsonApi()
+        ->expects('entities')
+        ->withData($data)
+        ->post('/api/testUrlPrefix/entities')
+        ->assertErrors(422, [
+            [
+                'source' => ['pointer' => '/data/attributes/name'],
+                'status' => '422',
+            ],
+        ]);
+});
+
+it('cannot store a new entity with invalid table field', function () {
+    $data = [
+        'type' => 'entities',
+        'attributes' => [
+            'name' => 'Good',
+            'table' => 'bad name',
+        ],
+    ];
+
+    $this
+        ->jsonApi()
+        ->expects('entities')
+        ->withData($data)
+        ->post('/api/testUrlPrefix/entities')
+        ->assertErrors(422, [
+            [
+                'source' => ['pointer' => '/data/attributes/table'],
+                'status' => '422',
+            ],
+        ]);
+});
+
+it('cannot store two entities with the same table field', function () {
+    $entity1 = Entity::factory()->create();
+    $entity2 = Entity::factory()->make();
+
+    $data = [
+        'type' => 'entities',
+        'attributes' => [
+            'name' => $entity2->name,
+            'table' => $entity1->table,
+        ],
+    ];
+
+    $this
+        ->jsonApi()
+        ->expects('entities')
+        ->withData($data)
+        ->post('/api/testUrlPrefix/entities')
+        ->assertErrors(422, [
+            [
+                'source' => ['pointer' => '/data/attributes/table'],
+                'status' => '422',
+            ],
+        ]);
+});
+
 // update
 
 it('updates the entity\'s name field', function () {
     $entity = Entity::factory()->create([
-        'name' => 'original'
+        'name' => 'Original'
     ]);
 
     $this->assertDatabaseHas('pre_met_entities_suf_met', [
         'id' => $entity->getRouteKey(),
-        'name' => 'original',
+        'name' => 'Original',
     ]);
 
     $data = [
         'id' => (string) $entity->getRouteKey(),
         'type' => 'entities',
         'attributes' => [
-            'name' => 'changed',
+            'name' => 'Changed',
         ],
     ];
 
@@ -206,7 +300,7 @@ it('updates the entity\'s name field', function () {
 
     $this->assertDatabaseHas('pre_met_entities_suf_met', [
         'id' => $entity->getRouteKey(),
-        'name' => 'changed',
+        'name' => 'Changed',
     ]);
 });
 

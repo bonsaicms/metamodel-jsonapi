@@ -31,7 +31,7 @@ class AttributeRequest extends ResourceRequest
                     'created_at',
                     'updated_at',
                 ]),
-                'regex:/[a-z][a-z0-9_]*/',
+                'regex:/^[a-z][a-z0-9_]*$/',
                 Rule::unique((new Attribute)->getTable())->where(function ($query) {
                     return $query->where('entity_id', $this->validationData()['entity']['id']);
                 })->ignore($this->model()),

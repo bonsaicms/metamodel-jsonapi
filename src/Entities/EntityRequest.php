@@ -21,12 +21,14 @@ class EntityRequest extends ResourceRequest
                 'required',
                 'string',
                 'max:255',
+                'regex:/^([A-Z][a-z0-9]*)*$/',
+                Rule::unique((new Entity)->getTable())->ignore($this->model()),
             ],
             'table' => [
                 'required',
                 'string',
                 'max:255',
-                'regex:/[a-z][a-z0-9_]*/',
+                'regex:/^[a-z][a-z0-9_]*$/',
                 Rule::unique((new Entity)->getTable())->ignore($this->model()),
             ],
         ];
