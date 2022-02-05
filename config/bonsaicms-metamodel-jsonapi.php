@@ -19,7 +19,12 @@ return [
     /*
      * This array will be passed as the first argument to Route::group()
      */
-    'routesConfig' => [],
+    'routesConfig' => [
+        'middleware' => [
+            'api',
+            'auth',
+        ],
+    ],
 
     /*
      * JSON:API resource types.
