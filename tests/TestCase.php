@@ -57,47 +57,7 @@ class TestCase extends Orchestra
             'server' => 'testServerName',
             'authorizable' => false,
             'baseUri' => '/api/testUrlPrefix',
+            'routesConfig' => [],
         ]);
-//        config()->set('bonsaicms-metamodel-eloquent', [
-//            'bind' => [
-//                'modelManager' => true,
-//            ],
-//            'observeModels' => [
-//                'entity' => true,
-//                'attribute' => true,
-//                'relationship' => true,
-//            ],
-//            'generate' => [
-//                'folder' => __DIR__.'/../vendor/orchestra/testbench-core/laravel/app/Models',
-//                'modelFileSuffix' => '.generated.php',
-//                'namespace' => 'TestApp\\Models',
-//                'parentModel' => 'Some\\Namespace\\ParentModel',
-//            ],
-//        ]);
     }
-
-//    protected function setUp(): void
-//    {
-//        parent::setUp();
-//
-//        $this->deleteGeneratedFiles();
-//    }
-//
-//    protected function tearDown(): void
-//    {
-//        parent::tearDown();
-//
-//        $this->deleteGeneratedFiles();
-//    }
-//
-//    protected function deleteGeneratedFiles()
-//    {
-//        $files = glob(__DIR__.'/../vendor/orchestra/testbench-core/laravel/app/Models/*.generated.php');
-//
-//        foreach ($files as $file) {
-//            if(is_file($file)) {
-//                unlink($file);
-//            }
-//        }
-//    }
 }

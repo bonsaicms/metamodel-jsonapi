@@ -15,4 +15,9 @@ return [
      * The base URI namespace for the server.
      */
     'baseUri' => '/api/metamodel',
+
+    /*
+     * This array will be passed as the first argument to Route::group()
+     */
+    'routesConfig' => [],
 ];
