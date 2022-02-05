@@ -2,6 +2,7 @@
 
 namespace BonsaiCms\MetamodelJsonApi\Entities;
 
+use Illuminate\Support\Facades\Config;
 use BonsaiCms\Metamodel\Models\Entity;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
@@ -14,6 +15,16 @@ use LaravelJsonApi\Eloquent\Schema;
 
 class EntitySchema extends Schema
 {
+    /**
+     * Get the JSON:API resource type.
+     *
+     * @return string
+     */
+    public static function type(): string
+    {
+        return Config::get('bonsaicms-metamodel-jsonapi.types.entity');
+    }
+
     /**
      * The model the schema corresponds to.
      *
@@ -36,9 +47,9 @@ class EntitySchema extends Schema
             DateTime::make('createdAt')->sortable()->readOnly(),
             DateTime::make('updatedAt')->sortable()->readOnly(),
 
-            HasMany::make('attributes')->type('attributes'),
-            HasMany::make('leftRelationships')->type('relationships'),
-            HasMany::make('rightRelationships')->type('relationships'),
+            HasMany::make('attributes')->type(Config::get('bonsaicms-metamodel-jsonapi.types.attribute'))->canCount(),
+            HasMany::make('leftRelationships')->type(Config::get('bonsaicms-metamodel-jsonapi.types.relationship'))->canCount(),
+            HasMany::make('rightRelationships')->type(Config::get('bonsaicms-metamodel-jsonapi.types.relationship'))->canCount(),
         ];
     }
 

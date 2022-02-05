@@ -20,4 +20,13 @@ return [
      * This array will be passed as the first argument to Route::group()
      */
     'routesConfig' => [],
+
+    /*
+     * JSON:API resource types.
+     */
+    'types' => [
+        'entity' => 'metamodel-entities',
+        'attribute' => 'metamodel-attributes',
+        'relationship' => 'metamodel-relationships',
+    ],
 ];

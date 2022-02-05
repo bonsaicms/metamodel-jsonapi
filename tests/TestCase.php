@@ -58,6 +58,11 @@ class TestCase extends Orchestra
             'authorizable' => false,
             'baseUri' => '/api/testUrlPrefix',
             'routesConfig' => [],
+            'types' => [
+                'entity' => 'entities',
+                'attribute' => 'attributes',
+                'relationship' => 'relationships',
+            ],
         ]);
     }
 }

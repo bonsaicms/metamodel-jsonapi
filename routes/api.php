@@ -9,17 +9,18 @@ Route::group(Config::get('bonsaicms-metamodel-jsonapi.routesConfig'), function (
     JsonApiRoute::server(Config::get('bonsaicms-metamodel-jsonapi.server'))
         ->prefix(Config::get('bonsaicms-metamodel-jsonapi.baseUri'))
         ->resources(function ($server) {
-            $server->resource('entities', JsonApiController::class)
+            // TODO: tu by som mal asi pouzivat vlastny kontroler ktory mi umozni veci ako "regenerate eloquent model" a pod.
+            $server->resource(Config::get('bonsaicms-metamodel-jsonapi.types.entity'), JsonApiController::class)
                 ->relationships(function ($relationships) {
                     $relationships->hasMany('attributes');
                     $relationships->hasMany('leftRelationships');
                     $relationships->hasMany('rightRelationships');
                 });
-            $server->resource('attributes', JsonApiController::class)
+            $server->resource(Config::get('bonsaicms-metamodel-jsonapi.types.attribute'), JsonApiController::class)
                 ->relationships(function ($relationships) {
                     $relationships->hasOne('entity');
                 });
-            $server->resource('relationships', JsonApiController::class)
+            $server->resource(Config::get('bonsaicms-metamodel-jsonapi.types.relationship'), JsonApiController::class)
                 ->relationships(function ($relationships) {
                     $relationships->hasOne('leftEntity');
                     $relationships->hasOne('rightEntity');

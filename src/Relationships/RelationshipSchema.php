@@ -2,6 +2,7 @@
 
 namespace BonsaiCms\MetamodelJsonApi\Relationships;
 
+use Illuminate\Support\Facades\Config;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Fields\Relations\BelongsTo;
 use BonsaiCms\Metamodel\Models\Relationship;
@@ -14,6 +15,16 @@ use LaravelJsonApi\Eloquent\Schema;
 
 class RelationshipSchema extends Schema
 {
+    /**
+     * Get the JSON:API resource type.
+     *
+     * @return string
+     */
+    public static function type(): string
+    {
+        return Config::get('bonsaicms-metamodel-jsonapi.types.relationship');
+    }
+
     /**
      * The model the schema corresponds to.
      *
@@ -39,8 +50,8 @@ class RelationshipSchema extends Schema
             DateTime::make('createdAt')->sortable()->readOnly(),
             DateTime::make('updatedAt')->sortable()->readOnly(),
 
-            BelongsTo::make('leftEntity')->type('entities'),
-            BelongsTo::make('rightEntity')->type('entities'),
+            BelongsTo::make('leftEntity')->type(Config::get('bonsaicms-metamodel-jsonapi.types.entity')),
+            BelongsTo::make('rightEntity')->type(Config::get('bonsaicms-metamodel-jsonapi.types.entity')),
         ];
     }
 

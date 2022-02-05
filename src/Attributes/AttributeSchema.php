@@ -2,6 +2,7 @@
 
 namespace BonsaiCms\MetamodelJsonApi\Attributes;
 
+use Illuminate\Support\Facades\Config;
 use BonsaiCms\Metamodel\Models\Attribute;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
@@ -16,6 +17,16 @@ use BonsaiCms\MetamodelJsonApi\Fields\Json;
 
 class AttributeSchema extends Schema
 {
+    /**
+     * Get the JSON:API resource type.
+     *
+     * @return string
+     */
+    public static function type(): string
+    {
+        return Config::get('bonsaicms-metamodel-jsonapi.types.attribute');
+    }
+
     /**
      * The model the schema corresponds to.
      *
@@ -40,7 +51,7 @@ class AttributeSchema extends Schema
             DateTime::make('createdAt')->sortable()->readOnly(),
             DateTime::make('updatedAt')->sortable()->readOnly(),
 
-            BelongsTo::make('entity')->type('entities'),
+            BelongsTo::make('entity')->type(Config::get('bonsaicms-metamodel-jsonapi.types.entity')),
         ];
     }
 
