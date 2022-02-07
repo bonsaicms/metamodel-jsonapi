@@ -45,7 +45,7 @@ class AttributeSchema extends Schema
             ID::make(),
             Str::make('name')->sortable(),
             Str::make('column')->sortable(),
-            Str::make('dataType', 'type')->sortable(),
+            Str::make('dataType')->sortable(),
             Json::make('default')->sortable(),
             Boolean::make('nullable')->sortable(),
             DateTime::make('createdAt')->sortable()->readOnly(),

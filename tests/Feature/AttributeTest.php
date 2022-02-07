@@ -84,7 +84,7 @@ it('stores a new attribute', function () {
         'attributes' => [
             'name' => $attribute->name,
             'column' => $attribute->column,
-            'dataType' => $attribute->type,
+            'dataType' => $attribute->data_type,
             'default' => $attribute->default,
             'nullable' => $attribute->nullable,
         ],
@@ -125,7 +125,7 @@ it('can store two attributes with the same column field for two different entiti
         'attributes' => [
             'name' => $attribute1->name,
             'column' => $attribute1->column,
-            'dataType' => $attribute1->type,
+            'dataType' => $attribute1->data_type,
             'default' => $attribute1->default,
             'nullable' => $attribute1->nullable,
         ],
@@ -152,7 +152,7 @@ it('can store two attributes with the same column field for two different entiti
         'attributes' => [
             'name' => $attribute2->name,
             'column' => $attribute2->column,
-            'dataType' => $attribute2->type,
+            'dataType' => $attribute2->data_type,
             'default' => $attribute2->default,
             'nullable' => $attribute2->nullable,
         ],
@@ -192,7 +192,7 @@ it('cannot store two attributes with the same column field for the same entity',
         'attributes' => [
             'name' => $attribute1->name,
             'column' => $attribute1->column,
-            'dataType' => $attribute1->type,
+            'dataType' => $attribute1->data_type,
             'default' => $attribute1->default,
             'nullable' => $attribute1->nullable,
         ],
@@ -219,7 +219,7 @@ it('cannot store two attributes with the same column field for the same entity',
         'attributes' => [
             'name' => $attribute2->name,
             'column' => $attribute2->column,
-            'dataType' => $attribute2->type,
+            'dataType' => $attribute2->data_type,
             'default' => $attribute2->default,
             'nullable' => $attribute2->nullable,
         ],
@@ -320,12 +320,12 @@ it('updates the attribute\'s data type field', function () {
     $attribute = Attribute::factory()
         ->for(Entity::factory())
         ->create([
-            'type' => 'boolean',
+            'data_type' => 'boolean',
         ]);
 
     $this->assertDatabaseHas('pre_met_attributes_suf_met', [
         'id' => $attribute->getRouteKey(),
-        'type' => 'boolean',
+        'data_type' => 'boolean',
     ]);
 
     $data = [
@@ -345,7 +345,7 @@ it('updates the attribute\'s data type field', function () {
 
     $this->assertDatabaseHas('pre_met_attributes_suf_met', [
         'id' => $attribute->getRouteKey(),
-        'type' => 'string',
+        'data_type' => 'string',
     ]);
 });
 
