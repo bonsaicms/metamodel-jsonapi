@@ -100,7 +100,7 @@ it('stores a new attribute', function () {
 
     $this
         ->jsonApi()
-        ->expects('attribute')
+        ->expects('attributes')
         ->withData($data)
         ->includePaths('entity')
         ->post('/api/testUrlPrefix/attributes')
@@ -141,7 +141,7 @@ it('can store two attributes with the same column field for two different entiti
 
     $this
         ->jsonApi()
-        ->expects('attribute')
+        ->expects('attributes')
         ->withData($data1)
         ->includePaths('entity')
         ->post('/api/testUrlPrefix/attributes')
@@ -168,7 +168,7 @@ it('can store two attributes with the same column field for two different entiti
 
     $this
         ->jsonApi()
-        ->expects('attribute')
+        ->expects('attributes')
         ->withData($data2)
         ->includePaths('entity')
         ->post('/api/testUrlPrefix/attributes')
@@ -208,7 +208,7 @@ it('cannot store two attributes with the same column field for the same entity',
 
     $this
         ->jsonApi()
-        ->expects('attribute')
+        ->expects('attributes')
         ->withData($data1)
         ->includePaths('entity')
         ->post('/api/testUrlPrefix/attributes')
@@ -235,7 +235,7 @@ it('cannot store two attributes with the same column field for the same entity',
 
     $this
         ->jsonApi()
-        ->expects('attribute')
+        ->expects('attributes')
         ->withData($data2)
         ->includePaths('entity')
         ->post('/api/testUrlPrefix/attributes')
@@ -589,8 +589,6 @@ it('updates the attribute\'s nullable field', function () {
         'nullable' => true,
     ]);
 });
-
-// TODO: tests for store & update
 
 // TODO: tests for store & update related
 
