@@ -41,7 +41,7 @@ class RelationshipSchema extends Schema
     {
         return [
             ID::make(),
-            Str::make('type')->sortable(),
+            Str::make('cardinality')->sortable(),
             Str::make('pivotTable')->sortable(),
             Str::make('leftForeignKey')->sortable(),
             Str::make('rightForeignKey')->sortable(),
