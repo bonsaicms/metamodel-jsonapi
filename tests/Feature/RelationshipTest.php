@@ -123,8 +123,6 @@ it('fetches the right entity related to the relationship', function () {
         ->assertFetchedOne($rightEntity);
 });
 
-// TODO: tests for store & update
-
 // TODO: tests for store & update related
 
 // delete
