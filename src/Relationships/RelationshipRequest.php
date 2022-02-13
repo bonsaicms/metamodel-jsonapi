@@ -23,6 +23,7 @@ class RelationshipRequest extends ResourceRequest
                 Rule::in(Relationship::CARDINALITIES),
             ],
             'pivotTable' => [
+                'nullable',
                 'required_if:cardinality,manyToMany',
                 'prohibited_unless:cardinality,manyToMany',
                 'string',
@@ -30,6 +31,7 @@ class RelationshipRequest extends ResourceRequest
                 'regex:/^[a-z][a-z0-9_]*$/',
             ],
             'leftForeignKey' => [
+                'nullable',
                 'required_if:cardinality,manyToMany',
                 'prohibited_unless:cardinality,manyToMany', // TODO: napisat k tomuto testy
                 'string',
