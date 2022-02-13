@@ -2,6 +2,7 @@
 
 namespace BonsaiCms\MetamodelJsonApi\Attributes;
 
+use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 use BonsaiCms\Metamodel\Models\Attribute;
 use LaravelJsonApi\Validation\Rule as JsonApiRule;
@@ -33,7 +34,7 @@ class AttributeRequest extends ResourceRequest
                 ]),
                 'regex:/^[a-z][a-z0-9_]*$/',
                 Rule::unique((new Attribute)->getTable())->where(function ($query) {
-                    return $query->where('entity_id', $this->validationData()['entity']['id']);
+                    return $query->where('entity_id', Arr::get($this->validationData(), 'entity.id'));
                 })->ignore($this->model()),
             ],
             'dataType' => [
