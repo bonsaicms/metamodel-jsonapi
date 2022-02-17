@@ -49,7 +49,8 @@ class AttributeRequest extends ResourceRequest
                     'date',
                     'time',
                     'datetime',
-                    'json',
+                    'arraylist',
+                    'arrayhash',
                 ]),
             ],
             'default' => [
