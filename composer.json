@@ -15,20 +15,15 @@
         }
     ],
     "require": {
-        "php": "^8.0",
-        "laravel/framework": "^8.0",
-        "bonsaicms/metamodel": "dev-master",
-        "laravel-json-api/laravel": "^1.1"
+        "php": "^8.0.2",
+        "laravel/framework": "^9.0",
+        "laravel-json-api/laravel": "^2.0",
+        "bonsaicms/metamodel": "dev-master"
     },
     "require-dev": {
-        "orchestra/testbench": "^6.22",
+        "orchestra/testbench": "^7.0",
         "pestphp/pest": "^1.21",
-        "pestphp/pest-plugin-laravel": "^1.1",
-        "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-phpunit": "^1.0",
-        "phpunit/phpunit": "^9.5",
-        "laravel-json-api/testing": "^1.0"
+        "laravel-json-api/testing": "^1.1"
     },
     "autoload": {
         "psr-4": {
