@@ -4,10 +4,12 @@ namespace BonsaiCms\MetamodelJsonApi\Entities;
 
 use Illuminate\Support\Facades\Config;
 use BonsaiCms\Metamodel\Models\Entity;
+use LaravelJsonApi\Contracts\Schema\Sortable;
 use LaravelJsonApi\Eloquent\Contracts\Paginator;
 use LaravelJsonApi\Eloquent\Fields\DateTime;
 use LaravelJsonApi\Eloquent\Fields\ID;
 use LaravelJsonApi\Eloquent\Filters\WhereIdIn;
+use LaravelJsonApi\Eloquent\Sorting\SortCountable;
 use LaravelJsonApi\Eloquent\Fields\Relations\HasMany;
 use LaravelJsonApi\Eloquent\Fields\Str;
 use LaravelJsonApi\Eloquent\Pagination\PagePagination;
@@ -50,6 +52,22 @@ class EntitySchema extends Schema
             HasMany::make('attributes')->type(Config::get('bonsaicms-metamodel-jsonapi.types.attribute'))->canCount(),
             HasMany::make('leftRelationships')->type(Config::get('bonsaicms-metamodel-jsonapi.types.relationship'))->canCount(),
             HasMany::make('rightRelationships')->type(Config::get('bonsaicms-metamodel-jsonapi.types.relationship'))->canCount(),
+        ];
+    }
+
+    /**
+     * Get additional sortables.
+     *
+     * Get sortables that are not the resource ID or a resource attribute.
+     *
+     * @return Sortable[]|iterable
+     */
+    public function sortables(): iterable
+    {
+        return [
+            SortCountable::make($this, 'attributes'),
+            SortCountable::make($this, 'leftRelationships'),
+            SortCountable::make($this, 'rightRelationships'),
         ];
     }
 
