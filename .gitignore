@@ -11,3 +11,4 @@ coverage
 phpunit.xml
 phpstan.neon
 testbench.yaml
+composer.lock
